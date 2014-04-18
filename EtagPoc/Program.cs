@@ -13,14 +13,7 @@ namespace EtagPoc
     {
         static void Main(string[] args)
         {
-            var uri = Properties.Settings.Default.Url;
-            TimeSpan? _checkTimeOut = null;
-            var downloader = new GenericResourceDownloader(uri, (request) =>
-            {
-                if (_checkTimeOut.HasValue)
-                    request.Timeout = (int)_checkTimeOut.Value.TotalMilliseconds;
-                request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
-            });
+            var downloader = new SimpleResourceDownloader(Properties.Settings.Default.Url);
             Console.WriteLine("ENTER to request");
             Console.ReadLine();
             Console.WriteLine(downloader.GetContent());
